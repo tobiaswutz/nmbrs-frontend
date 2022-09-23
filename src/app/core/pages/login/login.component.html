@@ -1,0 +1,27 @@
+<div class="background">
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+<form *ngIf="form" [formGroup]="form" (submit)="onSubmit()">
+  <h3>{{signup ? 'Account erstellen' : 'Einloggen'}}</h3>
+  <span (click)="switch()" class="switch">{{signup ? 'go to login' : 'go to signup'}}</span>
+
+  <label for="username">Email</label>
+  <input formControlName="email" type="text" placeholder="Email" id="username">
+
+  <ng-container *ngIf="signup">
+      <label for="firstName">First Name</label>
+      <input formControlName="firstName" type="text" placeholder="First Name" id="firstName">
+      
+      <label for="lastName">Last Name</label>
+      <input formControlName="lastName" type="text" placeholder="Last Name" id="lastName">
+  </ng-container>
+
+  <label for="password">Password</label>
+  <input formControlName="password" type="password" placeholder="Password" id="password">
+
+  <button>
+    <span class="btn-text" *ngIf="!loading">{{signup ? 'Sign Up' : 'Login'}}</span>
+    <app-spinner *ngIf="loading"></app-spinner>
+  </button>
+</form>
