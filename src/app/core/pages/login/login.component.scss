@@ -1,10 +1,12 @@
+@import '../../../../media-queries.scss';
+
 .switch {
-    margin: 1rem auto;
-    &:hover {
-        color: #1845ad !important;
-        text-decoration: underline;
-        cursor: pointer;
-    }
+  margin: 1rem auto;
+  &:hover {
+    color: #1845ad !important;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 .background {
@@ -22,21 +24,49 @@
   border-radius: 50%;
 }
 .shape:first-child {
-  background: linear-gradient(#1845ad,
-      #23a2f6);
-  left: -15rem;
-  top: -10rem;
+  background: linear-gradient(#1845ad, #23a2f6);
+  left: -5rem;
+  top: -5rem;
+  @include sm {
+    left: -7rem;
+    top: -7rem;
+  }
+  @include md {
+    left: -8rem;
+    top: -8rem;
+  }
+  @include lg {
+    left: -4rem;
+    top: -10rem;
+  }
+  @include xl {
+    left: -10rem;
+    top: -8rem;
+  }
 }
 .shape:last-child {
-  background: linear-gradient(to right,
-      #ff512f,
-      #f09819);
-  right: -10rem;
-  bottom: -15rem;
+  background: linear-gradient(to right, #ff512f, #f09819);
+  right: -3rem;
+  bottom: -5rem;
+  @include sm {
+    right: -10rem;
+    bottom: -15rem;
+  }
+  @include md {
+    right: -10rem;
+    bottom: -8rem;
+  }
+  @include lg {
+    right: -10rem;
+    bottom: -8rem;
+  }
+  @include xl {
+    right: -10rem;
+    bottom: -8rem;
+  }
 }
 form {
-
-  width: 30%;
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
   transform: translate(-50%, -50%);
@@ -47,7 +77,21 @@ form {
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
+
+  @include sm {
+    width: 80%;
+  }
+  @include md {
+    width: 50%;
+  }
+  @include lg {
+    width: 40%;
+  }
+  @include xl {
+    width: 30%;
+  }
 }
+
 form * {
   font-family: 'Poppins', sans-serif;
   color: #ffffff;
@@ -91,9 +135,9 @@ button {
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
-    &:hover {
-        background-color: #e5e5e5;
-    }
+  &:hover {
+    background-color: #e5e5e5;
+  }
 }
 
 .btn-text {

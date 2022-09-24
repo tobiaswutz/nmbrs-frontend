@@ -4,10 +4,18 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { DashboardComponent } from './core/pages/dashboard/dashboard.component';
 import { LoginComponent } from './core/pages/login/login.component';
 import { AuthService } from './core/services/auth.service';
+import { TradelistComponent } from './core/pages/tradelist/tradelist.component';
+import { ReportsComponent } from './core/pages/reports/reports.component';
+import { DocumentsComponent } from './core/pages/documents/documents.component';
+import { TradelistoverviewComponent } from './core/pages/tradelistoverview/tradelistoverview.component';
 
 const routes: Routes = [
   { path: 'auth', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'tradelist', component: TradelistoverviewComponent, canActivate: [AuthGuard] },
+  { path: 'tradelist/:id', component: TradelistComponent, canActivate: [AuthGuard] },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
+  { path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard] },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
 ]
 

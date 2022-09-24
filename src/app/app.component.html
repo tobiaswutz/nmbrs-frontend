@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<router-outlet *ngIf="!logedin()"></router-outlet>
+<app-dashboard-view *ngIf="logedin()"><router-outlet></router-outlet></app-dashboard-view>
+

@@ -8,12 +8,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './core/pages/dashboard/dashboard.component';
 import { LoginComponent } from './core/pages/login/login.component';
+import { SidebarComponent } from './core/components/sidebar/sidebar.component';
+import { DashboardViewComponent } from './core/views/dashboard-view/dashboard-view.component';
+import { TradelistoverviewComponent } from './core/pages/tradelistoverview/tradelistoverview.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    SidebarComponent,
+    DashboardViewComponent,
+    TradelistoverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -21,11 +27,14 @@ import { LoginComponent } from './core/pages/login/login.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   exports: [
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    SidebarComponent,
+    DashboardViewComponent,
+    TradelistoverviewComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
