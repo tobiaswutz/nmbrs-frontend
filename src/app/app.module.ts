@@ -11,6 +11,8 @@ import { LoginComponent } from './core/pages/login/login.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { DashboardViewComponent } from './core/views/dashboard-view/dashboard-view.component';
 import { TradelistoverviewComponent } from './core/pages/tradelistoverview/tradelistoverview.component';
+import { EditTradeComponent } from './core/pages/edit-trade/edit-trade.component';
+import { TradelistComponent } from './core/pages/tradelist/tradelist.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { TradelistoverviewComponent } from './core/pages/tradelistoverview/trade
     LoginComponent,
     SidebarComponent,
     DashboardViewComponent,
-    TradelistoverviewComponent
+    TradelistoverviewComponent,
+    EditTradeComponent,
+    TradelistComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { TradelistoverviewComponent } from './core/pages/tradelistoverview/trade
     LoginComponent,
     SidebarComponent,
     DashboardViewComponent,
-    TradelistoverviewComponent
+    TradelistoverviewComponent,
+    EditTradeComponent,
+    TradelistComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

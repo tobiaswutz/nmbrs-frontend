@@ -9,6 +9,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class DashboardViewComponent implements OnInit {
 
+  public sidebarOpen: boolean = false;
+
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -16,6 +19,10 @@ export class DashboardViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  public toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
   }
 
   public logout(): void {
