@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
+import { NotificationService } from './core/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,7 @@ export class AppComponent {
 
   constructor(
     private auth: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
+    private ntf: NotificationService
   ) { }
 
   public logedin(): boolean {

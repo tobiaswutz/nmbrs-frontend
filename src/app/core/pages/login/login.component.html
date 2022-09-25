@@ -1,27 +1,40 @@
-<div class="background">
-  <div class="shape"></div>
-  <div class="shape"></div>
-</div>
-<form *ngIf="form" [formGroup]="form" (submit)="onSubmit()">
-  <h3>{{signup ? 'Account erstellen' : 'Einloggen'}}</h3>
-  <span (click)="switch()" class="switch">{{signup ? 'go to login' : 'go to signup'}}</span>
+<main class="relative h-full flex flex-1 flex-col overflow-hidden py-8 px-4 sm:px-6 lg:px-8"><img src="/img/beams-cover@95.jpg" alt="" class="absolute top-0 left-1/2 -ml-[47.5rem] w-[122.5rem] max-w-none">
+    <div class="absolute inset-0 text-slate-900/[0.07] [mask-image:linear-gradient(to_bottom_left,white,transparent,transparent)]"><svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid-bg" width="32" height="32" patternUnits="userSpaceOnUse" x="100%" patternTransform="translate(0 -1)">
+            <path d="M0 32V.5H32" fill="none" stroke="currentColor"></path>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid-bg)"></rect>
+      </svg></div>
+  <div class="relative flex flex-1 flex-col items-center justify-center pt-12 pb-16">
+    <h2 class="text-5xl mb-12 font-black">NMBRS</h2>
+    <h1 class="sr-only">Log in</h1>
 
-  <label for="username">Email</label>
-  <input formControlName="email" type="text" placeholder="Email" id="username">
+    <form *ngIf="form" [formGroup]="form" (submit)="onSubmit()" action="/login" class="w-full max-w-sm">
 
-  <ng-container *ngIf="signup">
-      <label for="firstName">First Name</label>
-      <input formControlName="firstName" type="text" placeholder="First Name" id="firstName">
-      
-      <label for="lastName">Last Name</label>
-      <input formControlName="lastName" type="text" placeholder="Last Name" id="lastName">
-  </ng-container>
+      <ng-container *ngIf="signup">
+        <div class="mb-6"><label for="firstName" class="block text-sm font-semibold leading-6 text-gray-900">Vorname</label><input formControlName="firstName" type="text" id="firstName" class="mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-slate-200"></div>
+        <div class="mb-6"><label for="lastName" class="block text-sm font-semibold leading-6 text-gray-900">Nachname</label><input formControlName="lastName" type="text" id="lastName" class="mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-slate-200"></div>
+      </ng-container>
 
-  <label for="password">Password</label>
-  <input formControlName="password" type="password" placeholder="Password" id="password">
+      <div class="mb-6"><label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email Adresse</label><input formControlName="email" type="email" id="email" class="mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-slate-200"></div>
+      <div class="mb-6"><label for="password" class="block text-sm font-semibold leading-6 text-gray-900">Passwort</label><input formControlName="password" type="password" id="password" class="mt-2 appearance-none text-slate-900 bg-white rounded-md block w-full px-3 h-10 shadow-sm sm:text-sm focus:outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 ring-1 ring-slate-200"></div>
 
-  <button>
-    <span class="btn-text" *ngIf="!loading">{{signup ? 'Sign Up' : 'Login'}}</span>
-    <app-spinner *ngIf="loading"></app-spinner>
-  </button>
-</form>
+      <button type="submit" class="inline-flex justify-center rounded-lg text-sm font-semibold py-2.5 px-4 bg-slate-900 text-white hover:bg-slate-700 w-full">
+        <span *ngIf="!loading">Sign in to account</span>
+        <span *ngIf="loading">
+          <app-spinner *ngIf="loading"></app-spinner>
+        </span>
+      </button>
+      <!-- <p class="mt-8 text-center"><a href="/password/reset" class="text-sm hover:underline">Forgot password?</a></p> -->
+    </form>
+
+  </div>
+  <footer class="relative shrink-0">
+    <div (click)="switch()" class="space-y-4 text-sm text-gray-900 sm:flex sm:items-center sm:justify-center sm:space-y-0 sm:space-x-4">
+      <p *ngIf="!signup" class="text-center sm:text-left hover:underline hover:cursor-pointer">Sie haben noch kein Konto?</p>
+      <p *ngIf="signup" class="text-center sm:text-left hover:underline hover:cursor-pointer">Sie haben schon ein Konto?</p>
+    </div>
+  </footer>
+</main>

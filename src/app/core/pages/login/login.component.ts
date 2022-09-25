@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -33,8 +33,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.authService.login(this.form.value.email, this.form.value.password);
     }
-
-    console.log(this.form?.value);
+    this.loading = false;
   }
 
   public switch(): void {

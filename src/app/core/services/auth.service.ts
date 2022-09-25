@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { UserService } from "./user.service";
 import { User } from "../models/user";
+import { NotificationService } from "./notification.service";
 
 
 
@@ -21,7 +22,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private ntf: NotificationService
   ) { }
 
   public isAuthenticated(): boolean {
@@ -40,9 +42,10 @@ export class AuthService {
       next: (response) => {
         this.setSession(response.body.access_token);
         this.router.navigate(["/dashboard"]);
+        this.ntf.success("Account erstellt");
       },
       error: (error) => {
-        alert(error.error.message);
+        this.ntf.error(error.error.message);
       }
     });
   }
@@ -53,9 +56,10 @@ export class AuthService {
       next: (response) => {
         this.setSession(response.access_token);
         this.router.navigate(["/dashboard"]);
+        this.ntf.success("You are logged in");
       },
       error: (error) => {
-        alert(error.error.message);
+        this.ntf.error(error.error.message);
       }
     });
   }

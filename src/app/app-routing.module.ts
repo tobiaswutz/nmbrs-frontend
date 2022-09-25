@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'tradelist', component: TradelistoverviewComponent, canActivate: [AuthGuard] },
   { path: 'tradelist/:id', component: TradelistComponent, canActivate: [AuthGuard] },
-  { path: 'tradelist/:id/edit', component: EditTradeComponent, canActivate: [AuthGuard] },
+{ path: 'tradelist/:id/edit', component: EditTradeComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard] },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
