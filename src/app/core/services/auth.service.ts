@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { lastValueFrom, Observable, Subject } from "rxjs";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthResponseTokenObj, JWTDecoded } from "../models/auth";
 import { Router } from "@angular/router";
@@ -7,6 +7,7 @@ import { HttpClient } from "@angular/common/http";
 import { UserService } from "./user.service";
 import { User } from "../models/user";
 import { NotificationService } from "./notification.service";
+import { WebService } from "./web.service";
 
 
 
@@ -23,7 +24,8 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private userService: UserService,
-    private ntf: NotificationService
+    private ntf: NotificationService,
+    private web: WebService
   ) { }
 
   public isAuthenticated(): boolean {
@@ -36,32 +38,21 @@ export class AuthService {
     return true;
   }
 
-  public signup(email: string, password: string, firstName: string, lastName: string): void {
-    const res: Observable<any> = this.http.post(this.baseUrl + "auth/signup", { email, password, firstName, lastName }, { observe: 'response' });
-    res.subscribe({
-      next: (response) => {
-        this.setSession(response.body.access_token);
-        this.router.navigate(["/dashboard"]);
-        this.ntf.success("Account erstellt");
-      },
-      error: (error) => {
-        this.ntf.error(error.error.message);
-      }
-    });
+  public async login(email: string, password: string): Promise<void> {
+    const res: any = await this.web.postCall("auth/signin", { email, password });
+    if (!res) { return; }
+    this.setSession(res.access_token);
+    this.router.navigate(["/dashboard"]);
+    this.ntf.success("You are logged in");
+
   }
 
-  public login(email: string, password: string): void {
-    const res: Observable<any> = this.http.post(this.baseUrl + "auth/signin", { email, password });
-    res.subscribe({
-      next: (response) => {
-        this.setSession(response.access_token);
-        this.router.navigate(["/dashboard"]);
-        this.ntf.success("You are logged in");
-      },
-      error: (error) => {
-        this.ntf.error(error.error.message);
-      }
-    });
+  public async signup(email: string, password: string, firstName: string, lastName: string): Promise<void> {
+    const res: any = await this.web.postCall("auth/signup", { email, password, firstName, lastName });
+    if (!res) { return; }
+    this.setSession(res.access_token);
+    this.router.navigate(["/dashboard"]);
+    this.ntf.success("Account erstellt");
   }
 
   public logout(): void {
