@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -26,7 +27,11 @@ export class LoginComponent implements OnInit {
   public onSubmit(): void {
     this.loading = true;
 
-    if (!this.form?.valid) { alert("Invalid form"); this.loading = false; return; }
+    if (!this.form?.valid) {
+      this.notificationService.error("Überprüfe deine Eingaben");
+      this.loading = false;
+      return;
+    }
     
     if(this.signup) {
       this.authService.signup(this.form.value.email, this.form.value.password, this.form.value.firstName, this.form.value.lastName);
