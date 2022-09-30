@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { NotificationService } from './notification.service';
 })
 export class WebService {
 
-  private configUrl = 'https://nest-server-production.up.railway.app/';
+  private configUrl = environment.serverUrl;
 
   constructor(
     private http: HttpClient,
@@ -44,7 +45,4 @@ export class WebService {
     catch (error: any) { console.error(error); this.note.error(error.error.message); }
     return false
   }
-
-
-
 }

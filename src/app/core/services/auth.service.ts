@@ -8,20 +8,18 @@ import { UserService } from "./user.service";
 import { User } from "../models/user";
 import { NotificationService } from "./notification.service";
 import { WebService } from "./web.service";
+import { environment } from "src/environments/environment";
 
 
 
 @Injectable()
 export class AuthService {
 
-  private baseUrl = 'https://nest-server-production.up.railway.app/';
-
   public loggedIn: Subject<boolean> = new Subject<boolean>();
   public userData: JWTDecoded | undefined | User;
 
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private userService: UserService,
     private ntf: NotificationService,
@@ -38,7 +36,7 @@ export class AuthService {
     return true;
   }
 
-  public async login(email: string, password: string): Promise<void> {
+  public async login(email: string, password: string): Promise<void> {    
     const res: any = await this.web.postCall("auth/signin", { email, password });
     if (!res) { return; }
     this.setSession(res.access_token);
