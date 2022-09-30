@@ -15,6 +15,7 @@ import { EditTradeComponent } from './core/pages/edit-trade/edit-trade.component
 import { TradelistComponent } from './core/pages/tradelist/tradelist.component';
 import { EditOverlayComponent } from './core/components/edit-overlay/edit-overlay.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
+import { SidepanelComponent } from './core/components/sidepanel/sidepanel.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NotificationComponent } from './shared/components/notification/notifica
     EditTradeComponent,
     TradelistComponent,
     EditOverlayComponent,
-    NotificationComponent
+    NotificationComponent,
+    SidepanelComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { NotificationComponent } from './shared/components/notification/notifica
     EditTradeComponent,
     TradelistComponent,
     EditOverlayComponent,
-    NotificationComponent
+    NotificationComponent,
+    SidepanelComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

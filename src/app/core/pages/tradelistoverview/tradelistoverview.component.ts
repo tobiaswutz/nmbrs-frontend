@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionList } from '../../models/transaction-list';
 import { TradelistoverviewService } from './tradelistoverview.service';
 
 @Component({
@@ -8,12 +9,19 @@ import { TradelistoverviewService } from './tradelistoverview.service';
 })
 export class TradelistoverviewComponent implements OnInit {
 
+  public transactionLists: TransactionList[] = [];
+
   constructor(
     private tradelistService: TradelistoverviewService
   ) { }
 
-  ngOnInit() {
-    this.tradelistService.getTransactionLists();
+  public async ngOnInit() {
+    await this.tradelistService.getTransactionLists();
+    this.transactionLists = this.tradelistService.transactionLists;
+  }
+
+  public createTransactionList() {
+    this.tradelistService.createTransactionList();
   }
 
 }

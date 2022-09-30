@@ -45,4 +45,37 @@ export class WebService {
     catch (error: any) { console.error(error); this.note.error(error.error.message); }
     return false
   }
+
+  //authenticated calls
+  public async getAuthCall(path: string, options?: any) {
+    const token = localStorage.getItem('token');
+    if (!token) { return false; }
+    const headers = { Authorization: `Bearer ${token}` };
+    const opt = { headers, ...options };
+    return await this.getCall(path, opt);
+  }
+
+  public async postAuthCall(path: string, body: any, options?: any) {
+    const token = localStorage.getItem('token');
+    if (!token) { return false; }
+    const headers = { Authorization: `Bearer ${token}` };
+    const opt = { headers, ...options };
+    return await this.postCall(path, body, opt);
+  }
+
+  public async putAuthCall(path: string, body: any, options?: any) {
+    const token = localStorage.getItem('token');
+    if (!token) { return false; }
+    const headers = { Authorization: `Bearer ${token}` };
+    const opt = { headers, ...options };
+    return await this.putCall(path, body, opt);
+  }
+
+  public async deleteAuthCall(path: string, options?: any) {
+    const token = localStorage.getItem('token');
+    if (!token) { return false; }
+    const headers = { Authorization: `Bearer ${token}` };
+    const opt = { headers, ...options };
+    return await this.deleteCall(path, opt);
+  }
 }
