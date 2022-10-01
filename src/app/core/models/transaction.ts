@@ -10,7 +10,7 @@ export class Transaction {
         public outflowAmount: string,
         public inflowSymbolUsdPrice: string,
         public outflowSymbolUsdPrice: string,
-        public transactionTime: string,
+        public transactionTime?: string,
         public feeSymbol?: string,
         public feeAmount?: number,
         public description?: string,
