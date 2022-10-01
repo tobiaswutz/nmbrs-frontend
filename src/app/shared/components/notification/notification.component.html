@@ -1,4 +1,4 @@
-<div *ngFor="let msg of notifications" aria-live="assertive" class="fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:py-20 sm:items-start">
+<div *ngFor="let msg of notifications" aria-live="assertive" class="fixed z-50 inset-0 flex items-end px-4 py-6 pointer-events-none sm:py-20 sm:items-start">
   <div class="anime w-full flex flex-col items-center space-y-4 sm:items-end">
     <div [class]="msg.type" class="max-w-sm w-full shadow-lg rounded-lg pointer-events-auto ring-1 ring-black bg-black ring-opacity-5 overflow-hidden">
       <div class="p-4">

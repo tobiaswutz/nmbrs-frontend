@@ -13,7 +13,6 @@ import { DashboardViewComponent } from './core/views/dashboard-view/dashboard-vi
 import { TradelistoverviewComponent } from './core/pages/tradelistoverview/tradelistoverview.component';
 import { EditTradeComponent } from './core/pages/edit-trade/edit-trade.component';
 import { TradelistComponent } from './core/pages/tradelist/tradelist.component';
-import { EditOverlayComponent } from './core/components/edit-overlay/edit-overlay.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { SidepanelComponent } from './core/components/sidepanel/sidepanel.component';
 
@@ -27,7 +26,6 @@ import { SidepanelComponent } from './core/components/sidepanel/sidepanel.compon
     TradelistoverviewComponent,
     EditTradeComponent,
     TradelistComponent,
-    EditOverlayComponent,
     NotificationComponent,
     SidepanelComponent
   ],
@@ -47,7 +45,6 @@ import { SidepanelComponent } from './core/components/sidepanel/sidepanel.compon
     TradelistoverviewComponent,
     EditTradeComponent,
     TradelistComponent,
-    EditOverlayComponent,
     NotificationComponent,
     SidepanelComponent
   ],
