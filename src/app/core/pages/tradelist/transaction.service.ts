@@ -15,7 +15,7 @@ export class TransactionService {
     private note: NotificationService,
   ) { }
 
-  public async getTransactionsByListId(): Promise<any> {
+  public async getTransactionsByListId(): Promise<any> {    
     try {
       return await this.webService.getAuthCall('transactions/' + this.openTransactionListId);
     } catch (error: any) {
@@ -29,8 +29,10 @@ export class TransactionService {
     if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
     try {
       await this.webService.postAuthCall('transactions/' + this.openTransactionListId, transaction);
-      this.getTransactionsByListId();
       this.note.success('Transaction added');
+      setTimeout(() => {
+        this.getTransactionsByListId();
+      }, 3000);
     } catch (error: any) {
       this.note.error(error);
       console.error(error);
