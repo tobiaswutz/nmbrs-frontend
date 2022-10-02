@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Transaction } from '../../models/transaction';
+import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
 import { TradelistoverviewService } from '../tradelistoverview/tradelistoverview.service';
 import { TransactionService } from './transaction.service';
 
@@ -19,6 +20,7 @@ export class TradelistComponent implements OnInit {
     private transactionService: TransactionService,
     private transactionListService: TradelistoverviewService,
     private activatedRoute: ActivatedRoute,
+    private sidepanel: SidepanelService,
   ) { }
 
   public async ngOnInit() {
@@ -28,6 +30,10 @@ export class TradelistComponent implements OnInit {
     console.log(this.transactions);
 
 
+  }
+
+  public addTransactions(): void {
+    this.sidepanel.openPanel(new SidePanelData('trade'));
   }
 
   public async getTransactions() {

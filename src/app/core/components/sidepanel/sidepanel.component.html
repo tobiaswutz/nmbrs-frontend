@@ -67,6 +67,87 @@
 
 
   <ng-container *ngIf="sidePanelType === 'trade'">
+            <!-- baseSymbol: new FormControl('', [Validators.required]),
+            quoteSymbol: new FormControl('', [Validators.required]),
+            baseAmount: new FormControl('', [Validators.required]),
+            quoteAmount: new FormControl('', [Validators.required]),
+            side: new FormControl('', [Validators.required]),
+            price: new FormControl('', [Validators.required]),
+            filledTime: new FormControl(''),
+            feeSymbol: new FormControl(''),
+            feeAmount: new FormControl(''),
+            exchange: new FormControl(''),
+            externalId: new FormControl(''), -->
+
+    <form class="flex flex-col gap-4 overflow-y-auto" *ngIf="sidePanelType === 'trade' && form" [formGroup]="form">
+
+      <div>
+        <label for="baseSymbol" class="block text-sm font-medium text-gray-700">Base Symbol</label>
+        <div class="mt-1">
+          <input formControlName="baseSymbol" type="text" name="baseSymbol" id="baseSymbol" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="BTC">
+        </div>
+      </div>
+      <div>
+        <label for="quoteSymbol" class="block text-sm font-medium text-gray-700">Quote Symbol</label>
+        <div class="mt-1">
+          <input formControlName="quoteSymbol" type="text" name="quoteSymbol" id="quoteSymbol" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="EUR">
+        </div>
+      </div>
+      <div>
+        <label for="baseAmount" class="block text-sm font-medium text-gray-700">Base Amount</label>
+        <div class="mt-1">
+          <input formControlName="baseAmount" type="number" name="baseAmount" id="baseAmount" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="0.001">
+        </div>
+      </div>
+      <div>
+        <label for="quoteAmount" class="block text-sm font-medium text-gray-700">Quote Amount</label>
+        <div class="mt-1">
+          <input formControlName="quoteAmount" type="number" name="quoteAmount" id="quoteAmount" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="100">
+        </div>
+      </div>
+      <div>
+        <label for="side" class="block text-sm font-medium text-gray-700">Side</label>
+        <div class="mt-1">
+          <input formControlName="side" type="text" name="side" id="side" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="BUY">
+        </div>
+      </div>
+      <div>
+        <label for="price" class="block text-sm font-medium text-gray-700">Price</label>
+        <div class="mt-1">
+          <input formControlName="price" type="number" name="price" id="price" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="100">
+        </div>
+      </div>
+      <div>
+        <label for="filledTime" class="block text-sm font-medium text-gray-700">Filled Time</label>
+        <div class="mt-1">
+          <input formControlName="filledTime" type="datetime-local" name="filledTime" id="filledTime" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="2021-01-01T00:00:00">
+        </div>
+      </div>
+      <div>
+        <label for="feeSymbol" class="block text-sm font-medium text-gray-700">Fee Symbol</label>
+        <div class="mt-1">
+          <input formControlName="feeSymbol" type="text" name="feeSymbol" id="feeSymbol" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="EUR">
+        </div>
+      </div>
+      <div>
+        <label for="feeAmount" class="block text-sm font-medium text-gray-700">Fee Amount</label>
+        <div class="mt-1">
+          <input formControlName="feeAmount" type="number" name="feeAmount" id="feeAmount" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="0.1">
+        </div>
+      </div>
+      <div>
+        <label for="exchange" class="block text-sm font-medium text-gray-700">Exchange</label>
+        <div class="mt-1">
+          <input formControlName="exchange" type="text" name="exchange" id="exchange" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Binance">
+        </div>
+      </div>
+      <div>
+        <label for="externalId" class="block text-sm font-medium text-gray-700">External Id</label>
+        <div class="mt-1">
+          <input formControlName="externalId" type="text" name="externalId" id="externalId" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="123456">
+        </div>
+      </div>
+    </form>
 
   </ng-container>
 

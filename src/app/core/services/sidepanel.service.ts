@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Sidepanel } from '../components/sidepanel/sidepanel.component';
+import { TransactionService } from '../pages/tradelist/transaction.service';
 import { TradelistoverviewService } from '../pages/tradelistoverview/tradelistoverview.service';
 
 
@@ -20,6 +21,7 @@ export class SidepanelService {
 
   constructor(
     private overviewService: TradelistoverviewService,
+    private transactionService: TransactionService
   ) { }
 
   public openPanel(panel: SidePanelData) {
@@ -32,7 +34,7 @@ export class SidepanelService {
         this.overviewService.addTransactionList(formValue);
         break;
       case 'trade':
-        console.log(formValue);
+        this.transactionService.addTransaction(formValue, 31);
         break;
       case 'settings':
         console.log(formValue);

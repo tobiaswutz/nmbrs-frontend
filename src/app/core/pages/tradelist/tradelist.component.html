@@ -8,6 +8,7 @@
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
       <button (click)="deleteTradeList()" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto">Delete</button>
       <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Export</button>
+      <button (click)="addTransactions()" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">NEW TRADE</button>
     </div>
   </div>
   <div class="mt-8 flex flex-col">
@@ -18,12 +19,12 @@
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Datum</th>
-                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Pair</th>
-                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Inflow</th>
-                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Outflow</th>
-                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Price</th>
-                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Quantity</th>
-                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Net amount</th>
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Paar</th>
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Seite</th>
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Kurs</th>
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Base Menge</th>
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Quote Menge</th>
+                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Gebühren</th>
                 <th scope="col" class="relative whitespace-nowrap py-3.5 pl-3 pr-4 sm:pr-6">
                   <span class="sr-only">Edit</span>
                 </th>
@@ -34,13 +35,14 @@
 
 
               <tr *ngFor="let transaction of transactions">
-                <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">{{transaction.transactionTime ? transaction.transactionTime : 'N/A'}}</td>
-                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{{transaction.inflowSymbol}} / {{transaction.outflowSymbol}}</td>
-                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{{transaction.inflowAmount}}</td>
-                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{transaction.outflowAmount}}</td>
-                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">${{transaction.inflowSymbolUsdPrice}}</td>
-                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{transaction.outflowAmount}}</td>
-                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">$4,397.00</td>
+                <td *ngIf="transaction.filledTime" class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">{{transaction.filledTime | date: 'dd.MM.yyyy HH:mm'}}</td>
+                <td *ngIf="!transaction.filledTime" class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">'N/A'</td>
+                <td class="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">{{transaction.baseSymbol}} / {{transaction.quoteSymbol}}</td>
+                <td class="whitespace-nowrap px-2 py-2 text-sm font-bold" [ngClass]="{'text-green-600': transaction.side === 'buy', 'text-red-600': transaction.side === 'sell'}">{{transaction.side | uppercase}}</td>
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{transaction.price}}</td>
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{transaction.baseAmount}} {{transaction.baseSymbol}}</td>
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{transaction.quoteAmount}} {{transaction.quoteSymbol}}</td>
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{transaction.feeAmount && transaction.feeSymbol ? transaction.feeAmount + transaction.feeSymbol : 'N/A'}}</td>
                 <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <a routerLink="edit" class="text-indigo-600 hover:text-indigo-900">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

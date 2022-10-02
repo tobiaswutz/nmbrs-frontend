@@ -22,4 +22,14 @@ export class TransactionService {
     }
   }
 
+  public async addTransaction(transaction: Transaction, listId: number): Promise<any> {
+    if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
+    try {
+      return await this.webService.postAuthCall('transactions/' + listId, transaction);
+    } catch (error: any) {
+      this.note.error(error);
+      console.error(error);
+    }
+  }
+
 }
