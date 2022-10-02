@@ -36,14 +36,18 @@ export class SidepanelComponent implements OnInit {
     this.sidePanelData = null;
   }
 
+  public setSide(side: string) {
+    this.form?.get('side')?.setValue(side);
+  }
+
   public onSubmit(): void {    
     if (!this.form?.valid) {
       this.notificationService.error("Überprüfe deine Eingaben");
       return;
     }
     this.sidePanelService.submit(this.sidePanelType, this.form.value);
-    // this.visible = false;
-    // this.sidePanelData = null;
+    this.visible = false;
+    this.sidePanelData = null;
   }
 
   private buildForm(): void {
@@ -59,7 +63,7 @@ export class SidepanelComponent implements OnInit {
         quoteSymbol: new FormControl(null, [Validators.required]),
         baseAmount: new FormControl(null, [Validators.required]),
         quoteAmount: new FormControl(null, [Validators.required]),
-        side: new FormControl(null, [Validators.required]),
+        side: new FormControl('buy', [Validators.required]),
         price: new FormControl(null, [Validators.required]),
         filledTime: new FormControl(null),
         feeSymbol: new FormControl(null),

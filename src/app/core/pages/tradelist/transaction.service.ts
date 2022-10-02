@@ -8,24 +8,29 @@ import { WebService } from '../../services/web.service';
 })
 export class TransactionService {
 
+  public openTransactionListId: number | undefined | null;
+
   constructor(
     private webService: WebService,
     private note: NotificationService,
   ) { }
 
-  public async getTransactionsByListId(id: number): Promise<any> {
+  public async getTransactionsByListId(): Promise<any> {
     try {
-      return await this.webService.getAuthCall('transactions/' + id);
+      return await this.webService.getAuthCall('transactions/' + this.openTransactionListId);
     } catch (error: any) {
       this.note.error(error);
       console.error(error);
     }
   }
 
-  public async addTransaction(transaction: Transaction, listId: number): Promise<any> {
+  public async addTransaction(transaction: Transaction): Promise<any> {
+    if (!this.openTransactionListId || this.openTransactionListId === 0) { return; }
     if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
     try {
-      return await this.webService.postAuthCall('transactions/' + listId, transaction);
+      await this.webService.postAuthCall('transactions/' + this.openTransactionListId, transaction);
+      this.getTransactionsByListId();
+      this.note.success('Transaction added');
     } catch (error: any) {
       this.note.error(error);
       console.error(error);

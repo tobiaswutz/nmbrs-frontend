@@ -34,7 +34,7 @@ export class SidepanelService {
         this.overviewService.addTransactionList(formValue);
         break;
       case 'trade':
-        this.transactionService.addTransaction(formValue, 31);
+        this.transactionService.addTransaction(formValue);
         break;
       case 'settings':
         console.log(formValue);

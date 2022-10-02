@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Transaction } from '../../models/transaction';
 import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
@@ -10,7 +10,7 @@ import { TransactionService } from './transaction.service';
   templateUrl: './tradelist.component.html',
   styleUrls: ['./tradelist.component.css']
 })
-export class TradelistComponent implements OnInit {
+export class TradelistComponent implements OnInit, OnDestroy {
 
   public transactionListiId: number | undefined;
 
@@ -25,20 +25,22 @@ export class TradelistComponent implements OnInit {
 
   public async ngOnInit() {
     this.transactionListiId = this.activatedRoute.snapshot.params['id'];
-    console.log(this.transactionListiId);
+    this.transactionService.openTransactionListId = this.transactionListiId;
     await this.getTransactions();
-    console.log(this.transactions);
-
 
   }
+
+  public ngOnDestroy() {
+    this.transactionService.openTransactionListId = null;
+  }
+
 
   public addTransactions(): void {
     this.sidepanel.openPanel(new SidePanelData('trade'));
   }
 
   public async getTransactions() {
-    if (!this.transactionListiId || this.transactionListiId === 0) { return; }
-    const result = await this.transactionService.getTransactionsByListId(this.transactionListiId);
+    const result = await this.transactionService.getTransactionsByListId();
     if (result) { this.transactions = result; }
   }
 

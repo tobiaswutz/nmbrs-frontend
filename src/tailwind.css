@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.clean {
+  @apply focus:ring-0 focus:ring-offset-0 shadow-none outline-none border-gray-300 focus:border-black;
+}
+.btn {
+  @apply inline-flex items-center justify-center rounded-md border border-transparent bg-black px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none sm:w-auto;
+}
+.btn-delete {
+  @apply inline-flex items-center justify-center rounded-md border border-transparent bg-red-800 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-900 focus:outline-none sm:w-auto;
+}

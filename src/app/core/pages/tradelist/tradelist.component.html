@@ -5,10 +5,9 @@
       <h1 class="text-xl font-semibold text-gray-900">Transactions</h1>
       <p class="mt-2 text-sm text-gray-700">Meine Transactions</p>
     </div>
-    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-      <button (click)="deleteTradeList()" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:w-auto">Delete</button>
-      <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Export</button>
-      <button (click)="addTransactions()" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">NEW TRADE</button>
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex flex-row gap-4">
+      <button (click)="deleteTradeList()" type="button" class="btn-delete">Delete</button>
+      <button (click)="addTransactions()" type="button" class="btn">NEW TRADE</button>
     </div>
   </div>
   <div class="mt-8 flex flex-col">
@@ -36,7 +35,7 @@
 
               <tr *ngFor="let transaction of transactions">
                 <td *ngIf="transaction.filledTime" class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">{{transaction.filledTime | date: 'dd.MM.yyyy HH:mm'}}</td>
-                <td *ngIf="!transaction.filledTime" class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">'N/A'</td>
+                <td *ngIf="!transaction.filledTime" class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">N/A</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">{{transaction.baseSymbol}} / {{transaction.quoteSymbol}}</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm font-bold" [ngClass]="{'text-green-600': transaction.side === 'buy', 'text-red-600': transaction.side === 'sell'}">{{transaction.side | uppercase}}</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{transaction.price}}</td>
