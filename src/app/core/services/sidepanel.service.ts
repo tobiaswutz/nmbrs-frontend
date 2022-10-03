@@ -30,8 +30,8 @@ export class SidepanelService {
 
   public submit(sidepanel: Sidepanel, formValue: any) {
     switch (sidepanel) {
-      case 'tradelist':
-        this.overviewService.addTransactionList(formValue);
+      case 'collection':
+        this.overviewService.addCollection(formValue);
         break;
       case 'trade':
         this.transactionService.addTransaction(formValue);

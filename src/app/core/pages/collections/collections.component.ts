@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit,  } from '@angular/core';
 import { takeWhile } from 'rxjs';
-import { TransactionList } from '../../models/transaction-list';
+import { Collection } from '../../models/collection';
 import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
 import { CollectionService } from './collection.service';
 
@@ -11,25 +11,25 @@ import { CollectionService } from './collection.service';
 })
 export class CollectionsComponent implements OnInit, OnDestroy {
 
-  public transactionLists: TransactionList[] = [];
+  public collections: Collection[] = [];
+
   private alive: boolean = true;
 
   constructor(
-    private tradelistService: CollectionService,
-    private sidepanel: SidepanelService,
+    private collectionService: CollectionService,
+    private sidePanelService: SidepanelService,
   ) { }
 
   public async ngOnInit() {
-    this.tradelistService.transactionLists.pipe(takeWhile(() => this.alive)).subscribe((lists: TransactionList[]) => { this.transactionLists = lists; });
-    await this.tradelistService.getTransactionLists();
+    this.collections = await this.collectionService.getCollections();
+    this.collectionService.collectionsSubject.pipe(takeWhile(() => this.alive)).subscribe((collections: Collection[]) => { this.collections = collections; });
   }
 
   public ngOnDestroy() {
     this.alive = false;
   }
 
-  public createTransactionList() {
-    this.sidepanel.openPanel(new SidePanelData('tradelist'));
+  public createCollection() {
+    this.sidePanelService.openPanel(new SidePanelData('collection'));
   }
-
 }

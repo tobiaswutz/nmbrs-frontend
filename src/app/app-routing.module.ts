@@ -12,8 +12,8 @@ import { CollectionsComponent } from './core/pages/collections/collections.compo
 const routes: Routes = [
   { path: 'auth', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'tradelist', component: CollectionsComponent, canActivate: [AuthGuard] },
-  { path: 'tradelist/:id', component: TransactionListComponent, canActivate: [AuthGuard] },
+  { path: 'collections', component: CollectionsComponent, canActivate: [AuthGuard] },
+  { path: 'collections/:id', component: TransactionListComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard] },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },

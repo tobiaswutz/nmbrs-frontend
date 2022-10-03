@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from '../../services/notification.service';
 import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
 
-export type Sidepanel = 'empty' | 'tradelist' | 'trade' | 'settings';
+export type Sidepanel = 'empty' | 'collection' | 'trade' | 'settings';
 
 @Component({
   selector: 'app-sidepanel',
@@ -51,7 +51,7 @@ export class SidepanelComponent implements OnInit {
   }
 
   private buildForm(): void {
-    if (this.sidePanelType == 'tradelist') {
+    if (this.sidePanelType == 'collection') {
       this.form = new FormGroup({
         name: new FormControl(null, [Validators.required]),
         description: new FormControl(null),

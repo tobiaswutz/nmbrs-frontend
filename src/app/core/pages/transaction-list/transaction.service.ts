@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Transaction } from '../../models/transaction';
 import { NotificationService } from '../../services/notification.service';
 import { WebService } from '../../services/web.service';
@@ -8,7 +9,10 @@ import { WebService } from '../../services/web.service';
 })
 export class TransactionService {
 
-  public openTransactionListId: number | undefined | null;
+  public openCollectionId: number | undefined | null;
+
+  public transactionsSubject: Subject<Transaction[]> = new Subject<Transaction[]>();
+
 
   constructor(
     private webService: WebService,
@@ -17,7 +21,9 @@ export class TransactionService {
 
   public async getTransactionsByListId(): Promise<any> {    
     try {
-      return await this.webService.getAuthCall('transactions/' + this.openTransactionListId);
+      const res: any = await this.webService.getAuthCall('transactions/' + this.openCollectionId);
+      this.transactionsSubject.next(res);
+      return res;
     } catch (error: any) {
       this.note.error(error);
       console.error(error);
@@ -25,14 +31,22 @@ export class TransactionService {
   }
 
   public async addTransaction(transaction: Transaction): Promise<any> {
-    if (!this.openTransactionListId || this.openTransactionListId === 0) { return; }
+    if (!this.openCollectionId || this.openCollectionId === 0) { return; }
     if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
     try {
-      await this.webService.postAuthCall('transactions/' + this.openTransactionListId, transaction);
+      await this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
       this.note.success('Transaction added');
-      setTimeout(() => {
-        this.getTransactionsByListId();
-      }, 3000);
+      this.getTransactionsByListId();
+    } catch (error: any) {
+      this.note.error(error);
+      console.error(error);
+    }
+  }
+
+  public async deleteTransaction(id: number): Promise<void> {
+    try {
+      await this.webService.deleteAuthCall('transactions/' + id);
+      this.getTransactionsByListId();
     } catch (error: any) {
       this.note.error(error);
       console.error(error);
