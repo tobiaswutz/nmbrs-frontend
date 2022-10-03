@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notification.service';
 
@@ -17,9 +18,13 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private notificationService: NotificationService,
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    if (this.auth.isAuthenticated()) { this.router.navigate(['/dashboard']); }
+    this.auth.isAuthenticated();
     this.buildForm();
   }
 

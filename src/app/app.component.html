@@ -1,5 +1,4 @@
-<router-outlet></router-outlet>
-
-<app-sidebar></app-sidebar>
+<router-outlet *ngIf="!logedin()"></router-outlet>
+<app-sidebar *ngIf="logedin()"><router-outlet></router-outlet></app-sidebar>
 <app-notification></app-notification>
 <app-sidepanel></app-sidepanel>
