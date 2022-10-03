@@ -10,9 +10,8 @@ import { DashboardComponent } from './core/pages/dashboard/dashboard.component';
 import { LoginComponent } from './core/pages/login/login.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { DashboardViewComponent } from './core/views/dashboard-view/dashboard-view.component';
-import { TradelistoverviewComponent } from './core/pages/tradelistoverview/tradelistoverview.component';
-import { EditTradeComponent } from './core/pages/edit-trade/edit-trade.component';
-import { TradelistComponent } from './core/pages/tradelist/tradelist.component';
+import { CollectionsComponent } from './core/pages/collections/collections.component';
+import { TransactionListComponent } from './core/pages/transaction-list/transaction-list.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { SidepanelComponent } from './core/components/sidepanel/sidepanel.component';
 
@@ -23,9 +22,8 @@ import { SidepanelComponent } from './core/components/sidepanel/sidepanel.compon
     LoginComponent,
     SidebarComponent,
     DashboardViewComponent,
-    TradelistoverviewComponent,
-    EditTradeComponent,
-    TradelistComponent,
+    CollectionsComponent,
+    TransactionListComponent,
     NotificationComponent,
     SidepanelComponent
   ],
@@ -42,9 +40,8 @@ import { SidepanelComponent } from './core/components/sidepanel/sidepanel.compon
     LoginComponent,
     SidebarComponent,
     DashboardViewComponent,
-    TradelistoverviewComponent,
-    EditTradeComponent,
-    TradelistComponent,
+    CollectionsComponent,
+    TransactionListComponent,
     NotificationComponent,
     SidepanelComponent
   ],

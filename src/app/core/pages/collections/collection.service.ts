@@ -3,13 +3,12 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { TransactionList } from '../../models/transaction-list';
 import { NotificationService } from '../../services/notification.service';
-import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
 import { WebService } from '../../services/web.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TradelistoverviewService {
+export class CollectionService {
 
   public transactionLists: Subject<TransactionList[]> = new Subject<TransactionList[]>();
 

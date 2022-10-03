@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Sidepanel } from '../components/sidepanel/sidepanel.component';
-import { TransactionService } from '../pages/tradelist/transaction.service';
-import { TradelistoverviewService } from '../pages/tradelistoverview/tradelistoverview.service';
+import { TransactionService } from '../pages/transaction-list/transaction.service';
+import { CollectionService } from '../pages/collections/collection.service';
 
 
 export class SidePanelData {
@@ -20,7 +20,7 @@ export class SidepanelService {
   public newPanel = new Subject<SidePanelData>();
 
   constructor(
-    private overviewService: TradelistoverviewService,
+    private overviewService: CollectionService,
     private transactionService: TransactionService
   ) { }
 

@@ -2,20 +2,20 @@ import { Component, OnDestroy, OnInit,  } from '@angular/core';
 import { takeWhile } from 'rxjs';
 import { TransactionList } from '../../models/transaction-list';
 import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
-import { TradelistoverviewService } from './tradelistoverview.service';
+import { CollectionService } from './collection.service';
 
 @Component({
-  selector: 'app-tradelistoverview',
-  templateUrl: './tradelistoverview.component.html',
-  styleUrls: ['./tradelistoverview.component.css']
+  selector: 'app-collections',
+  templateUrl: './collections.component.html',
+  styleUrls: ['./collections.component.css']
 })
-export class TradelistoverviewComponent implements OnInit, OnDestroy {
+export class CollectionsComponent implements OnInit, OnDestroy {
 
   public transactionLists: TransactionList[] = [];
   private alive: boolean = true;
 
   constructor(
-    private tradelistService: TradelistoverviewService,
+    private tradelistService: CollectionService,
     private sidepanel: SidepanelService,
   ) { }
 

@@ -2,15 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Transaction } from '../../models/transaction';
 import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
-import { TradelistoverviewService } from '../tradelistoverview/tradelistoverview.service';
+import { CollectionService } from '../collections/collection.service';
 import { TransactionService } from './transaction.service';
 
 @Component({
-  selector: 'app-tradelist',
-  templateUrl: './tradelist.component.html',
-  styleUrls: ['./tradelist.component.css']
+  selector: 'app-transaction-list',
+  templateUrl: './transaction-list.component.html',
+  styleUrls: ['./transaction-list.component.css']
 })
-export class TradelistComponent implements OnInit, OnDestroy {
+export class TransactionListComponent implements OnInit, OnDestroy {
 
   public transactionListiId: number | undefined;
 
@@ -18,7 +18,7 @@ export class TradelistComponent implements OnInit, OnDestroy {
 
   constructor(
     private transactionService: TransactionService,
-    private transactionListService: TradelistoverviewService,
+    private transactionListService: CollectionService,
     private activatedRoute: ActivatedRoute,
     private sidepanel: SidepanelService,
   ) { }
