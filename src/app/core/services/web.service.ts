@@ -23,9 +23,10 @@ export class WebService {
   }
 
   public async postCall(path: string, body: any, options?: any) {
-    try { return await lastValueFrom(this.http.post(this.configUrl + path, body, options)); }
-    catch (error: any) { console.error(error); this.note.error(error.error.message); }
-    return false
+    try {
+      return await lastValueFrom(this.http.post(this.configUrl + path, body, options));
+    }
+    catch (error: any) { console.error(error); this.note.error(error.error.message); return false; }
   }
 
   public async putCall(path: string, body: any, options?: any) {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Sidepanel } from '../components/sidepanel/sidepanel.component';
+import { Method, Sidepanel } from '../components/sidepanel/sidepanel.component';
 import { TransactionService } from '../pages/transaction-list/transaction.service';
 import { CollectionService } from '../pages/collections/collection.service';
-
 
 export class SidePanelData {
   constructor(
     public sidepanel: Sidepanel,
+    public method: Method,
     public data?: any
   ) { }
 }
@@ -20,7 +20,7 @@ export class SidepanelService {
   public newPanel = new Subject<SidePanelData>();
 
   constructor(
-    private overviewService: CollectionService,
+    private collectionService: CollectionService,
     private transactionService: TransactionService
   ) { }
 
@@ -28,19 +28,17 @@ export class SidepanelService {
     this.newPanel.next(panel);
   }
 
-  public submit(sidepanel: Sidepanel, formValue: any) {
+  public submitCollection(formValue: any, method: Method, id?: number) {
+    
+  }
+
+  public submit(sidepanel: Sidepanel, formValue: any, method: Method) {
     switch (sidepanel) {
-      case 'collection':
-        this.overviewService.addCollection(formValue);
+      case 'COLLECTION':
+        this.collectionService.addCollection(formValue);
         break;
-      case 'trade':
+      case 'TRANSACTION':
         this.transactionService.addTransaction(formValue);
-        break;
-      case 'settings':
-        console.log(formValue);
-        break;
-      default:
-        console.log(formValue);
         break;
     }
   }

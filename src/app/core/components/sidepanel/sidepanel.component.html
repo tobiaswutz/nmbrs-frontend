@@ -20,7 +20,7 @@
           <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
             <div class="px-4 sm:px-6">
               <div class="flex items-start justify-between">
-                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">{{sidePanelType}}</h2>
+                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">{{sidePanelData.sidepanel}}</h2>
                 <div class="ml-3 flex h-7 items-center">
                   <button (click)="abort()" type="button" class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2clean focus:ring-offset-2">
                     <span class="sr-only">Close panel</span>
@@ -49,7 +49,7 @@
 
 
 <ng-template #content>
-  <form class="flex flex-col gap-4" *ngIf="sidePanelType === 'collection' && form" [formGroup]="form">
+  <form class="flex flex-col gap-4" *ngIf="sidePanelData.sidepanel === 'COLLECTION' && form" [formGroup]="form">
     <div>
       <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
       <div class="mt-1">
@@ -66,9 +66,9 @@
 
 
 
-  <ng-container *ngIf="sidePanelType === 'trade'">
+  <ng-container *ngIf="sidePanelData.sidepanel === 'TRANSACTION'">
 
-    <form class="flex flex-col gap-4 overflow-y-auto" *ngIf="sidePanelType === 'trade' && form" [formGroup]="form">
+    <form class="flex flex-col gap-4 overflow-y-auto" *ngIf="sidePanelData.sidepanel === 'TRANSACTION' && form" [formGroup]="form">
 
 
       <span class="isolate w-auto inline-flex border-black rounded-md">
@@ -153,10 +153,6 @@
         </div>
       </div>
     </form>
-
-  </ng-container>
-
-  <ng-container *ngIf="sidePanelType === 'settings'">
 
   </ng-container>
 </ng-template>

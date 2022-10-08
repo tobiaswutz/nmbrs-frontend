@@ -44,6 +44,6 @@ export class NotificationComponent implements OnInit {
 
   public note(messaeg: Message) {
     this.notifications.push(messaeg);
-    setTimeout(() => { this.notifications.shift(); }, 30000);
+    setTimeout(() => { this.notifications.shift(); }, 1500);
   }
 }

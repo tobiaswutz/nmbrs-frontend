@@ -52,12 +52,17 @@ export class TransactionListComponent implements OnInit, OnDestroy {
     this.collection = null;
   }
 
+  public editTransaction(id: number) {
+    const tranasctionInEdit = this.transactions.find(t => t.id === id);
+    this.sidepanel.openPanel(new SidePanelData('TRANSACTION', 'EDIT', tranasctionInEdit));
+  }
+
   public deleteTransaction(transactionId: number) {
     this.transactionService.deleteTransaction(transactionId);
   }
 
   public addTransactions(): void {
-    this.sidepanel.openPanel(new SidePanelData('trade'));
+    this.sidepanel.openPanel(new SidePanelData('TRANSACTION', 'CREATE'));
   }
 
   public deleteTradeList() {    
