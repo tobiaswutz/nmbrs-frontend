@@ -4,9 +4,9 @@ import { Subject } from 'rxjs';
 export class ModalData {
   constructor(
     public title: string,
-    public message: string,
-    public confirmText: string,
-    public cancelText: string,
+    public message?: string,
+    public confirmText?: string,
+    public cancelText?: string,
   ) { }
 }
 
