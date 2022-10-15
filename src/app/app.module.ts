@@ -14,6 +14,7 @@ import { TransactionListComponent } from './core/pages/transaction-list/transact
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { SidepanelComponent } from './core/components/sidepanel/sidepanel.component';
 import { ModalComponent } from './core/components/modal/modal.component';
+import { ContentModalComponent } from './core/components/content-modal/content-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ModalComponent } from './core/components/modal/modal.component';
     TransactionListComponent,
     NotificationComponent,
     SidepanelComponent,
-    ModalComponent
+    ModalComponent,
+    ContentModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { ModalComponent } from './core/components/modal/modal.component';
     TransactionListComponent,
     NotificationComponent,
     SidepanelComponent,
-    ModalComponent
+    ModalComponent,
+    ContentModalComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CollectionService } from '../../pages/collections/collection.service';
-import { ModalData, ModalService } from '../../services/modal.service';
+import { DynamicModalData, ModalData, ModalService } from '../../services/modal.service';
 import { NotificationService } from '../../services/notification.service';
 
 
@@ -14,7 +14,12 @@ import { NotificationService } from '../../services/notification.service';
 export class ModalComponent implements OnInit {
 
   public visible = false;
-  public modalData: ModalData = new ModalData("Test", "Test", "Test", "Test");
+  public dynamicVisible = false;
+
+  public modalData: ModalData | undefined;
+
+  public dynamicModalData: DynamicModalData | undefined;
+
   public form: FormGroup | undefined;
   public loading: boolean = false;
 
@@ -26,8 +31,10 @@ export class ModalComponent implements OnInit {
 
   public abort() {
     this.visible = false;
+    this.dynamicVisible = false;
     this.loading = false;
-    this.modalData = new ModalData("Test", "Test", "Test", "Test");
+    this.modalData = undefined
+    this.dynamicModalData = undefined;
   }
 
   public async onSubmit(): Promise<void> {
@@ -43,6 +50,11 @@ export class ModalComponent implements OnInit {
       this.buildForm();
       this.modalData = data;
       this.visible = true;
+    });
+
+    this.modalService.newDynamicDataModal.subscribe((data: DynamicModalData) => {
+      this.dynamicModalData = data;
+      this.dynamicVisible = true;
     });
   }
 

@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { Transaction } from '../../models/transaction';
 import { NotificationService } from '../../services/notification.service';
 import { WebService } from '../../services/web.service';
+import { PaginatedTransactions } from './transactions';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,12 @@ import { WebService } from '../../services/web.service';
 export class TransactionService {
 
   public openCollectionId: number | undefined | null;
-
-  public transactionsSubject: Subject<Transaction[]> = new Subject<Transaction[]>();
+  public page: number = 1;
+  public numberOfTransactions: number = 0;
+  public pageSize: number = 50;
+  
+  
+  public paginatedTransactions: Subject<PaginatedTransactions> = new Subject<PaginatedTransactions>();
 
 
   constructor(
@@ -19,34 +24,36 @@ export class TransactionService {
     private note: NotificationService,
   ) { }
 
-  public async exportTransactions(): Promise<void> {
-    const transactions = await this.getTransactionsByListId();
-    const csv = 'filledTime,baseSymbol,quoteSymbol,baseAmount,quoteAmount,side,price,fees,exchange,externalId\n' + transactions.map((transaction: Transaction) => {
-      return `${transaction.filledTime},${transaction.baseSymbol},${transaction.quoteSymbol},${transaction.baseAmount},${transaction.quoteAmount},${transaction.side},${transaction.price},${transaction.feeAmount}${transaction.feeSymbol},${transaction.exchange},${transaction.externalId}`;
-    }).join('\n');
 
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.setAttribute('hidden', '');
-    a.setAttribute('href', url);
-    a.setAttribute('download', 'transactions.csv');
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }
-
-
-  public async getTransactionsByListId(): Promise<any> {
+  public async getTransactionsPaginated(page: number, pageSize: number): Promise<any> {
     try {
-      const res: any = await this.webService.getAuthCall('transactions/' + this.openCollectionId);
-      this.transactionsSubject.next(res);
+      const res: any = await this.webService.getAuthCall(`transactions/${this.openCollectionId}/${page}/${pageSize}`);
+      this.paginatedTransactions.next(new PaginatedTransactions(page, res.numberOfTransactions, res.transactions));
+      this.page = page;
+      this.numberOfTransactions = res.numberOfTransactions;
       return res;
     } catch (error: any) {
       this.note.error(error);
       console.error(error);
     }
   }
+
+
+  // public async addTransaction(transaction: Transaction): Promise<any> {
+  //   if (!this.openCollectionId || this.openCollectionId === 0) { return; }
+  //   if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
+  //   try {
+  //     await this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
+  //     this.note.success('Transaction added');
+  //     this.getTransactionsPaginated(this.page, this.pageSize);
+  //   } catch (error: any) {
+  //     this.note.error(error);
+  //     console.error(error);
+  //   }
+  // }
+
+
+
 
   private getRandomCryptoSymbol(): string {
     const cryptoSymbols: string[] = ['BTC', 'ETH', 'XRP', 'BCH', 'LTC', 'EOS', 'BSV', 'XLM', 'ADA', 'TRX', 'XMR', 'DASH', 'NEO', 'ETC', 'MIOTA', 'XTZ', 'BNB', 'USDT', 'VET', 'DOGE', 'XEM', 'ZEC', 'ONT', 'DCR', 'QTUM', 'LSK', 'ZIL', 'BTG', 'OMG', 'ICX', 'SC', 'ZRX', 'DGB', 'STEEM', 'WAVES', 'NANO', 'KMD', 'REP', 'XVG', 'BCN', 'BTM', 'XZC', 'ARK', 'AE', 'PPT', 'KCS', 'WTC', 'DGD', 'STRAT', 'BAT', 'GNT', 'ETN', 'RVN', 'KNC', 'ARDR', 'DCN', 'BTS', 'SNT', 'GXS', 'SYS', 'PIVX', 'WAX', 'MONA', 'GAS', 'NXT', 'BNT', 'BCD', 'FUN', 'LRC', 'QASH', 'MCO', 'POWR', 'ICN', 'MITH', 'ENJ', 'ELF', 'QSP', 'SALT', 'BQX', 'STORJ', 'WAN', 'RHOC', 'KIN', 'MANA', 'CVC', 'GNO', 'DENT', 'NAS', 'POLY', 'VERI', 'POE', 'MTH', 'SNGLS', 'DRGN', 'RDN', 'REQ', 'SUB', 'ENG', 'CND', 'DNT', 'LUN', 'AMB', 'APPC', 'KIN', 'LINK', 'WINGS', 'RLC', 'POA', 'BLZ', 'GVT', 'AION', 'CMT', 'BIX', 'BCHABC', 'BCHSV', 'BTT', 'COTI', 'DREP', 'HOT', 'IOST', 'KEY', 'MATIC', 'MFT', 'NPXS', 'OCEAN', 'OGN', 'PAX'];
@@ -86,7 +93,7 @@ export class TransactionService {
       try {
         this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
         this.note.success('Transaction added');
-        this.getTransactionsByListId();
+        this.getTransactionsPaginated(this.page, this.pageSize);
       } catch (error: any) {
         this.note.error(error);
         console.error(error);
@@ -95,27 +102,32 @@ export class TransactionService {
   }
 
 
-  // public async addTransaction(transaction: Transaction): Promise<any> {    
-  //   if (!this.openCollectionId || this.openCollectionId === 0) { return; }
-  //   if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
-  //   try {
-  //     await this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
-  //     this.note.success('Transaction added');
-  //     this.getTransactionsByListId();
-  //   } catch (error: any) {
-  //     this.note.error(error);
-  //     console.error(error);
-  //   }
-  // }
-
   public async deleteTransaction(id: number): Promise<void> {
     try {
       await this.webService.deleteAuthCall('transactions/' + id);
-      this.getTransactionsByListId();
+      this.getTransactionsPaginated(this.page, this.pageSize);
     } catch (error: any) {
       this.note.error(error);
       console.error(error);
     }
   }
 
+
+
+  public async exportTransactions(): Promise<void> {
+      // const transactions = await this.getTransactionsByListId();
+      // const csv = 'filledTime,baseSymbol,quoteSymbol,baseAmount,quoteAmount,side,price,fees,exchange,externalId\n' + transactions.map((transaction: Transaction) => {
+      //   return `${transaction.filledTime},${transaction.baseSymbol},${transaction.quoteSymbol},${transaction.baseAmount},${transaction.quoteAmount},${transaction.side},${transaction.price},${transaction.feeAmount}${transaction.feeSymbol},${transaction.exchange},${transaction.externalId}`;
+      // }).join('\n');
+
+      // const blob = new Blob([csv], { type: 'text/csv' });
+      // const url = window.URL.createObjectURL(blob);
+      // const a = document.createElement('a');
+      // a.setAttribute('hidden', '');
+      // a.setAttribute('href', url);
+      // a.setAttribute('download', 'transactions.csv');
+      // document.body.appendChild(a);
+      // a.click();
+      // document.body.removeChild(a);
+  }
 }

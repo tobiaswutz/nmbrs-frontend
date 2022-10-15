@@ -36,6 +36,17 @@ export class CollectionService {
     }
 
   }
+  
+  public async updateCollection(collection: Collection): Promise<boolean> {
+    if (await this.webService.patchAuthCall('collection/' + collection.id, { name: collection?.name , description: collection?.description })) {
+      this.note.success("Sammlung aktualisiert");
+      this.getCollections();
+      return true;
+    } else {
+      this.note.error("Sammlung konnte nicht aktualisiert werden");
+      return false;
+    }
+  }
 
   public async deleteCollection(id: number): Promise<void> {
     try {

@@ -79,4 +79,12 @@ export class WebService {
     const opt = { headers, ...options };
     return await this.deleteCall(path, opt);
   }
+
+  public async patchAuthCall(path: string, body: any, options?: any) {
+    const token = localStorage.getItem('token');
+    if (!token) { return false; }
+    const headers = { Authorization: `Bearer ${token}` };
+    const opt = { headers, ...options };
+    return await this.patchCall(path, body, opt);
+  }
 }
