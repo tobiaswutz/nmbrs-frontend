@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit {
 
   public user: any = null;
   public options: any = null;
+  public options2: any = null;
 
   constructor(
     private userService: UserService,
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.user = this.userService.getUserInfo();
     this.options = {
-      backgroundColor: '#e5e7eb',
+      backgroundColor: 'transparent',
       title: {
         text: 'Portfolio verteilung',
         left: 'center',
@@ -79,6 +80,22 @@ export class DashboardComponent implements OnInit {
           animationDelay: function (idx: any) {
             return Math.random() * 200;
           }
+        }
+      ]
+    };
+
+    this.options2 = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'bar'
         }
       ]
     };
