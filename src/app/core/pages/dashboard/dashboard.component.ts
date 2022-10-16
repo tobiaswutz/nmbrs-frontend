@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,15 +10,24 @@ import { UserService } from '../../services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
+  public showSettings: boolean = false;
+
   public user: any = null;
   public options: any = null;
   public options2: any = null;
 
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dashboardService: DashboardService,
   ) { }
   ngOnInit() {
+    this.dashboardService.getChartOptions();
+
+
+
+
+
     this.user = this.userService.getUserInfo();
     this.options = {
       backgroundColor: 'transparent',
@@ -87,14 +97,14 @@ export class DashboardComponent implements OnInit {
     this.options2 = {
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
       },
       yAxis: {
         type: 'value'
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: [820, 932, 901, 934, 1290, 1330, 1320, 1200, 1100, 900, 1000, 1200],
           type: 'bar'
         }
       ]

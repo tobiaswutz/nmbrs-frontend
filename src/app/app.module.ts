@@ -16,6 +16,8 @@ import { SidepanelComponent } from './core/components/sidepanel/sidepanel.compon
 import { ModalComponent } from './core/components/modal/modal.component';
 import { ContentModalComponent } from './core/components/content-modal/content-modal.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { StakingComponent } from './core/pages/staking/staking.component';
+import { ReportsComponent } from './core/pages/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
     SidepanelComponent,
     ModalComponent,
     ContentModalComponent,
+    StakingComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
     SidepanelComponent,
     ModalComponent,
     ContentModalComponent,
+    StakingComponent,
+    ReportsComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

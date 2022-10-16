@@ -38,19 +38,29 @@ export class TransactionService {
     }
   }
 
+  public async getAllTransactions(collecttionId: number): Promise<any> {
+    try {
+      const res: any = await this.webService.getAuthCall(`transactions/${collecttionId}`);
+      return res;
+    } catch (error: any) {
+      this.note.error(error);
+      console.error(error);
+    }
+  }
 
-  // public async addTransaction(transaction: Transaction): Promise<any> {
-  //   if (!this.openCollectionId || this.openCollectionId === 0) { return; }
-  //   if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
-  //   try {
-  //     await this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
-  //     this.note.success('Transaction added');
-  //     this.getTransactionsPaginated(this.page, this.pageSize);
-  //   } catch (error: any) {
-  //     this.note.error(error);
-  //     console.error(error);
-  //   }
-  // }
+
+  public async addTransaction(transaction: Transaction): Promise<any> {
+    if (!this.openCollectionId || this.openCollectionId === 0) { return; }
+    if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
+    try {
+      await this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
+      this.note.success('Transaction added');
+      this.getTransactionsPaginated(this.page, this.pageSize);
+    } catch (error: any) {
+      this.note.error(error);
+      console.error(error);
+    }
+  }
 
 
 
@@ -74,32 +84,32 @@ export class TransactionService {
 
 
 
-  public async addTransaction(transaction: Transaction): Promise<any> {
-    setInterval(() => {
-      transaction.baseSymbol = this.getRandomCryptoSymbol();
-      transaction.quoteSymbol = this.getRandomCryptoSymbol();
-      transaction.baseAmount = Math.floor(Math.random() * 1000000) / 100;
-      transaction.quoteAmount = Math.floor(Math.random() * 1000000) / 100;
-      transaction.price = transaction.quoteAmount / transaction.baseAmount;
-      transaction.feeAmount = Math.floor(Math.random() * 1000000) / 100;
-      transaction.feeSymbol = this.getRandomCryptoSymbol();
-      transaction.exchange = this.getRandomCryptoExchange();
-      transaction.externalId = this.getRandomUUID();
-      transaction.side = Math.random() < 0.5 ? 'buy' : 'sell';
-      transaction.filledTime = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
+  // public async addTransaction(transaction: Transaction): Promise<any> {
+  //   setInterval(() => {
+  //     transaction.baseSymbol = this.getRandomCryptoSymbol();
+  //     transaction.quoteSymbol = this.getRandomCryptoSymbol();
+  //     transaction.baseAmount = Math.floor(Math.random() * 1000000) / 100;
+  //     transaction.quoteAmount = Math.floor(Math.random() * 1000000) / 100;
+  //     transaction.price = transaction.quoteAmount / transaction.baseAmount;
+  //     transaction.feeAmount = Math.floor(Math.random() * 1000000) / 100;
+  //     transaction.feeSymbol = this.getRandomCryptoSymbol();
+  //     transaction.exchange = this.getRandomCryptoExchange();
+  //     transaction.externalId = this.getRandomUUID();
+  //     transaction.side = Math.random() < 0.5 ? 'buy' : 'sell';
+  //     transaction.filledTime = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
 
-      if (!this.openCollectionId || this.openCollectionId === 0) { return; }
-      if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
-      try {
-        this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
-        this.note.success('Transaction added');
-        this.getTransactionsPaginated(this.page, this.pageSize);
-      } catch (error: any) {
-        this.note.error(error);
-        console.error(error);
-      }
-    }, 2000);
-  }
+  //     if (!this.openCollectionId || this.openCollectionId === 0) { return; }
+  //     if (transaction.filledTime) { transaction.filledTime = new Date(transaction.filledTime); }
+  //     try {
+  //       this.webService.postAuthCall('transactions/' + this.openCollectionId, transaction);
+  //       this.note.success('Transaction added');
+  //       this.getTransactionsPaginated(this.page, this.pageSize);
+  //     } catch (error: any) {
+  //       this.note.error(error);
+  //       console.error(error);
+  //     }
+  //   }, 2000);
+  // }
 
 
   public async deleteTransaction(id: number): Promise<void> {

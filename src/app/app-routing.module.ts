@@ -8,6 +8,7 @@ import { TransactionListComponent } from './core/pages/transaction-list/transact
 import { ReportsComponent } from './core/pages/reports/reports.component';
 import { DocumentsComponent } from './core/pages/documents/documents.component';
 import { CollectionsComponent } from './core/pages/collections/collections.component';
+import { StakingComponent } from './core/pages/staking/staking.component';
 
 const routes: Routes = [
   { path: 'auth', component: LoginComponent },
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'collections', component: CollectionsComponent, canActivate: [AuthGuard] },
   { path: 'collections/:id', component: TransactionListComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
-  { path: 'documents', component: DocumentsComponent, canActivate: [AuthGuard] },
+  { path: 'staking', component: StakingComponent, canActivate: [AuthGuard] },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
 ]
 
