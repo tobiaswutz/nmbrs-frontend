@@ -15,6 +15,7 @@ import { NotificationComponent } from './shared/components/notification/notifica
 import { SidepanelComponent } from './core/components/sidepanel/sidepanel.component';
 import { ModalComponent } from './core/components/modal/modal.component';
 import { ContentModalComponent } from './core/components/content-modal/content-modal.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ContentModalComponent } from './core/components/content-modal/content-m
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
   ],
   exports: [
     DashboardComponent,
