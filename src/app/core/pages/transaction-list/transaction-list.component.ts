@@ -73,7 +73,6 @@ export class TransactionListComponent implements OnInit, OnDestroy {
       this.dropdownOpen = false;
   }
 
-
   public ngOnDestroy() {
     this.alive = false;
     this.transactionService.openCollectionId = null;

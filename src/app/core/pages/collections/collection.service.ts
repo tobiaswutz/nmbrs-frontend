@@ -21,14 +21,14 @@ export class CollectionService {
   ) { }
 
   public async getCollectionById(id: number): Promise<Collection | undefined> {
-    if (!this.collections.length) { await this.getCollections(); }
+    if (!this.collections.length) { await this.fetchCollections(); }
     return this.collections.find((collection: Collection) => collection.id === id);
   }
 
   public async addCollection(formValue: any): Promise<boolean> {
     if (await this.webService.postAuthCall('collection', formValue)) {
       this.note.success("Sammlung erstellt");
-      this.getCollections();
+      this.fetchCollections();
       return true;
     } else {
       this.note.error("Sammlung konnte nicht erstellt werden");
@@ -36,11 +36,11 @@ export class CollectionService {
     }
 
   }
-  
+
   public async updateCollection(collection: Collection): Promise<boolean> {
-    if (await this.webService.patchAuthCall('collection/' + collection.id, { name: collection?.name , description: collection?.description })) {
+    if (await this.webService.patchAuthCall('collection/' + collection.id, { name: collection?.name, description: collection?.description })) {
       this.note.success("Sammlung aktualisiert");
-      this.getCollections();
+      this.fetchCollections();
       return true;
     } else {
       this.note.error("Sammlung konnte nicht aktualisiert werden");
@@ -52,22 +52,16 @@ export class CollectionService {
     try {
       await this.webService.deleteAuthCall('collection/' + id);
       this.note.success("Sammlung gelöscht");
-      this.getCollections();
+      this.fetchCollections();
       this.router.navigate(['/collections']);
     } catch (error: any) {
       console.error(error);
     }
   }
 
-  public async getCollections(): Promise<Collection[]> {
-    const res: any = await this.webService.getAuthCall("collection");
-    if (res) {
-      this.collections = res;
-      this.collectionsSubject.next(res);
-      return res;
-    } else {
-      this.note.error("Sammlungen konnten nicht geladen werden");
-    }
-    return [];
+  public async fetchCollections(): Promise<void> {
+    const collections: any = await this.webService.getAuthCall('collection');
+    this.collections = collections;
+    this.collectionsSubject.next(this.collections);
   }
 }
