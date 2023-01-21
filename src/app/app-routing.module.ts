@@ -6,7 +6,6 @@ import { LoginComponent } from './core/pages/login/login.component';
 import { AuthService } from './core/services/auth.service';
 import { TransactionListComponent } from './core/pages/transaction-list/transaction-list.component';
 import { ReportsComponent } from './core/pages/reports/reports.component';
-import { DocumentsComponent } from './core/pages/documents/documents.component';
 import { CollectionsComponent } from './core/pages/collections/collections.component';
 import { StakingComponent } from './core/pages/staking/staking.component';
 

@@ -38,6 +38,24 @@ export class TransactionService {
     }
   }
 
+  public async searchTransactionsPaginated(page: number, pageSize: number, search: string): Promise<any> {
+    if (!search) { return; }
+    try {
+      const res: any = await this.webService.getAuthCall(`transactions/search-transaction/${this.openCollectionId}/${page}/${pageSize}/${search}`);
+      console.log(res);
+      
+
+      if (!res.transactions?.length) { return; }
+      this.paginatedTransactions.next(new PaginatedTransactions(page, res.numberOfTransactions, res.transactions));
+      this.page = page;
+      this.numberOfTransactions = res.numberOfTransactions;
+      return res;
+    } catch (error: any) {
+      this.note.error(error);
+      console.error(error);
+    }
+  }
+
   public async getAllTransactions(collecttionId: number): Promise<any> {
     try {
       const res: any = await this.webService.getAuthCall(`transactions/${collecttionId}`);

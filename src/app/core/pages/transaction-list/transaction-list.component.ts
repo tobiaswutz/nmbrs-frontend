@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { takeWhile } from 'rxjs';
 import { Collection } from '../../models/collection';
 import { Transaction } from '../../models/transaction';
-import { DynamicModalData, ModalService } from '../../services/modal.service';
 import { NotificationService } from '../../services/notification.service';
 import { SidePanelData, SidepanelService } from '../../services/sidepanel.service';
 import { CollectionService } from '../collections/collection.service';
@@ -25,6 +24,7 @@ export class TransactionListComponent implements OnInit, OnDestroy {
   public transactionListiId: number | undefined;
   public transactions: Transaction[] = [];
   public dropdownOpen: boolean = false;
+  public searchString: string = '';
 
   public page: number = 1;
   public totalTransactions: number = 0;
@@ -45,7 +45,6 @@ export class TransactionListComponent implements OnInit, OnDestroy {
     private collectionService: CollectionService,
     private eref: ElementRef,
     private notify: NotificationService,
-    private modal: ModalService
   ) { }
 
   public async ngOnInit(): Promise<void> {
@@ -59,6 +58,14 @@ export class TransactionListComponent implements OnInit, OnDestroy {
     this.transactions = paginatedTransactions.transactions;
     this.page = paginatedTransactions.page;
     this.totalTransactions = paginatedTransactions.numberOfTransactions;
+  }
+
+  public onSearchChange(): void {
+    if (!this.searchString.length) {
+      this.transactionService.getTransactionsPaginated(this.page, this.transactionsPerPage);
+      return;
+    }    
+    this.transactionService.searchTransactionsPaginated(this.page, this.transactionsPerPage, this.searchString);
   }
 
   public async switchPage(directtion: 'next' | 'previous') {
