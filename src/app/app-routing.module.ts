@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'staking', component: StakingComponent, canActivate: [AuthGuard] },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 ]
 
 @NgModule({
